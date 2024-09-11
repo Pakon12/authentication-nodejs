@@ -22,16 +22,16 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 app.use('/api/auth', authRoutes)
 
-if(process.env.NODE_ENV ==='production'){
-    app.use(express.static(path.join(__dirname,'/frontend/dist')));
-    app.get('*', (req, res)=>{
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
+if (process.env.NODE_ENV === 'production') {
+    app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
     })
 }
 
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     connectDB()
-    console.log("Server is Runing on port:",PORT)
+    console.log("Server is Runing on port:", PORT)
 })
 
 
